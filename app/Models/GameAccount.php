@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasHistoryObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class GameAccount extends Model
 {
     /** @use HasFactory<\Database\Factories\GameAccountFactory> */
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasHistoryObserver;
    
     protected $fillable = [
         'user_id',

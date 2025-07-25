@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Models\Clan;
-use App\Http\Requests\StoreClanRequest;
-use App\Http\Requests\UpdateClanRequest;
+use App\Http\Controllers\Controller;
+use App\Models\GameAccount;
+use App\Http\Requests\StoreGameAccountRequest;
+use App\Http\Requests\UpdateGameAccountRequest;
 
-class ClanController extends Controller
+class GameAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class ClanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreClanRequest $request)
+    public function store(StoreGameAccountRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class ClanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Clan $clan)
+    public function show(GameAccount $gameAccount)
     {
         //
     }
@@ -43,7 +44,7 @@ class ClanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Clan $clan)
+    public function edit(GameAccount $gameAccount)
     {
         //
     }
@@ -51,7 +52,7 @@ class ClanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClanRequest $request, Clan $clan)
+    public function update(UpdateGameAccountRequest $request, GameAccount $gameAccount)
     {
         //
     }
@@ -59,7 +60,7 @@ class ClanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Clan $clan)
+    public function destroy(GameAccount $gameAccount)
     {
         //
     }

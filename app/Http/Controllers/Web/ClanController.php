@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Models\ClanRequirement;
-use App\Http\Requests\StoreClanRequirementRequest;
-use App\Http\Requests\UpdateClanRequirementRequest;
+use App\Http\Controllers\Controller;
+use App\Models\Clan;
+use App\Http\Requests\StoreClanRequest;
+use App\Http\Requests\UpdateClanRequest;
 
-class ClanRequirementController extends Controller
+class ClanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class ClanRequirementController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreClanRequirementRequest $request)
+    public function store(StoreClanRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class ClanRequirementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ClanRequirement $clanRequirement)
+    public function show(Clan $clan)
     {
         //
     }
@@ -43,7 +44,7 @@ class ClanRequirementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ClanRequirement $clanRequirement)
+    public function edit(Clan $clan)
     {
         //
     }
@@ -51,7 +52,7 @@ class ClanRequirementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClanRequirementRequest $request, ClanRequirement $clanRequirement)
+    public function update(UpdateClanRequest $request, Clan $clan)
     {
         //
     }
@@ -59,7 +60,7 @@ class ClanRequirementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ClanRequirement $clanRequirement)
+    public function destroy(Clan $clan)
     {
         //
     }

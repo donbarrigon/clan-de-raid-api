@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Traits\HasHistoryObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -15,7 +17,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasRoles, SoftDeletes,  HasFactory, Notifiable;
+    use HasApiTokens, HasRoles, SoftDeletes,  HasFactory, Notifiable, HasHistoryObserver;
 
     /**
      * The attributes that are mass assignable.
@@ -37,6 +39,9 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // precarga el profile por defecto
+    // protected $with = ['profile'];
 
     /**
      * Get the attributes that should be cast.
