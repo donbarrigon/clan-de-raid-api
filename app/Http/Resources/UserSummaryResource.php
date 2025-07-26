@@ -21,7 +21,6 @@ class UserSummaryResource extends JsonResource
             'id'               => $this->id,
             'nick'             => $this->name,
             'full_name'        => optional($this->profile)->full_name,
-            'email'            => $this->email,
             'phone_number'     => optional($this->profile)->phone_number,
             'discord_username' => optional($this->profile)->discord_username,
             'city'             => $city->name . ', ' . $state->name . ', ' . $country->name,

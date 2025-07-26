@@ -17,7 +17,7 @@ class Profile extends Model
 
     protected $fillable = [
         'user_id',
-        'name',
+        'full_name',
         'phone_number',
         'discord_username',
         'city_id',

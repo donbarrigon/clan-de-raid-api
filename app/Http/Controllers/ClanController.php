@@ -38,6 +38,12 @@ class ClanController extends Controller
         return new ClanResource($clan);
     }
 
+    public function Requeriments(Clan $clan)
+    {
+        Gate::authorize('view', $clan);
+        return $clan->requeriments;
+    }
+
     /**
      * Update the specified resource in storage.
      */
