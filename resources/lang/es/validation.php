@@ -281,4 +281,9 @@ return [
         'work'                     => 'trabajo',
         'year'                     => 'año',
     ],
+    'custom' => [
+        'name' => [
+            'regex' => 'El nombre de usuario debe comenzar con una letra y solo puede contener letras, números, guiones y guiones bajos.',
+        ],
+    ],
 ];

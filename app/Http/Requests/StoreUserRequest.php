@@ -22,7 +22,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:users,name|max:255',
+            'name' => 'required|string|unique:users,name|max:255|regex:/^[a-zA-Z][a-zA-Z0-9_-]{2,254}$/',
             'email' => 'required|email|unique:users,email|max:255',
             'password' => 'required|string|min:8|confirmed',
             'full_name' => 'nullable|string|max:255',
@@ -30,6 +30,13 @@ class StoreUserRequest extends FormRequest
             'discord_username' => 'nullable|string|max:50|regex:/^[a-zA-Z0-9_]+$/',
             'city_id' => 'required|exists:cities,id',
             'preferences' => 'nullable|json',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.regex' => __('validation.custom.name.regex'),
         ];
     }
 }

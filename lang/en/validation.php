@@ -180,6 +180,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'name' => [
+            'regex' => 'The username must start with a letter and can only contain letters, numbers, dashes, and underscores.',
+        ],
     ],
 
     /*
