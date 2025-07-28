@@ -79,7 +79,7 @@ class UserController extends Controller
 
     public function updatePassword(UpdatePasswordRequest $request, User $user)
     {
-        Gate::authorize('updatePassword', $user);
+        Gate::authorize('update', $user);
 
         if (!Hash::check($request->input('current_password'), $user->password)) {
             return response()->json([
@@ -100,7 +100,7 @@ class UserController extends Controller
 
     public function resetPassword(User $user)
     {
-        Gate::authorize('restorePassword', $user);
+        Gate::authorize('resetPassword', $user);
 
         $prefixes = ['8=D~', '8==D~', '8===D~', 'B=D~', 'B==D~', 'B===D~', '8=>~', '8==>~', '8===>~', 'B=>~', 'B==>~', 'B===>~', ];
         $prefix = $prefixes[array_rand($prefixes)];
@@ -123,7 +123,7 @@ class UserController extends Controller
 
     public function updateEmail(UpdateUserEmailRequest $request, User $user)
     {
-        Gate::authorize('updateEmail', $user);
+        Gate::authorize('update', $user);
 
         if (!Hash::check($request->input('password'), $user->password)) {
             return response()->json([

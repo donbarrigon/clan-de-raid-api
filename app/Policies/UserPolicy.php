@@ -45,7 +45,7 @@ class ProfilePolicy
      */
     public function delete(User $authUser, User $targetUser): bool
     {
-        return $authUser->hasPermissionTo('delete profile') || $authUser->id === $targetUser->id;
+        return $authUser->hasPermissionTo('delete user') || $authUser->id === $targetUser->id;
     }
 
     /**
@@ -53,7 +53,7 @@ class ProfilePolicy
      */
     public function restore(User $authUser, User $targetUser): bool
     {
-        return $authUser->hasPermissionTo('delete profile');
+        return $authUser->hasPermissionTo('delete user');
     }
 
     /**
@@ -62,5 +62,10 @@ class ProfilePolicy
     public function forceDelete(User $authUser, User $targetUser): bool
     {
         return false;
+    }
+
+    public function resetPassword(User $user): bool
+    {
+        return $user->hasPermissionTo('resetPassword');
     }
 }
