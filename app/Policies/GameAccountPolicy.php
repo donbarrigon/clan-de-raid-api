@@ -13,7 +13,7 @@ class GameAccountPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('view game-account');
     }
 
     /**
@@ -21,15 +21,15 @@ class GameAccountPolicy
      */
     public function view(User $user, GameAccount $gameAccount): bool
     {
-        return false;
+        return $user->hasPermissionTo('view game-account');
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, GameAccount $gameAccount): bool
     {
-        return false;
+        return $user->hasPermissionTo('create game-account') || $gameAccount->user_id === $user->id;
     }
 
     /**
@@ -37,7 +37,7 @@ class GameAccountPolicy
      */
     public function update(User $user, GameAccount $gameAccount): bool
     {
-        return false;
+        return $user->hasPermissionTo('update game-account') || $gameAccount->user_id === $user->id;
     }
 
     /**
@@ -45,7 +45,7 @@ class GameAccountPolicy
      */
     public function delete(User $user, GameAccount $gameAccount): bool
     {
-        return false;
+        return $user->hasPermissionTo('delete game-account') || $gameAccount->user_id === $user->id;
     }
 
     /**
@@ -53,7 +53,7 @@ class GameAccountPolicy
      */
     public function restore(User $user, GameAccount $gameAccount): bool
     {
-        return false;
+        return $user->hasPermissionTo('delete game-account');
     }
 
     /**
@@ -61,6 +61,6 @@ class GameAccountPolicy
      */
     public function forceDelete(User $user, GameAccount $gameAccount): bool
     {
-        return false;
+        return $user->hasPermissionTo('delete game-account');
     }
 }

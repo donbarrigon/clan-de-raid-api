@@ -5,47 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\GameAccount;
 use App\Http\Requests\StoreGameAccountRequest;
 use App\Http\Requests\UpdateGameAccountRequest;
+use Illuminate\Support\Facades\Gate;
 
 class GameAccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreGameAccountRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(GameAccount $gameAccount)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(GameAccount $gameAccount)
-    {
-        //
+        $gameAccount = new GameAccount($request->validated());
+        Gate::authorize('create', $gameAccount);
+        $gameAccount->save();
+        return $gameAccount;
     }
 
     /**
@@ -53,7 +25,9 @@ class GameAccountController extends Controller
      */
     public function update(UpdateGameAccountRequest $request, GameAccount $gameAccount)
     {
-        //
+        Gate::authorize('update', $gameAccount);
+        $gameAccount->update($request->validated());
+        return $gameAccount;
     }
 
     /**
@@ -61,6 +35,24 @@ class GameAccountController extends Controller
      */
     public function destroy(GameAccount $gameAccount)
     {
-        //
+        Gate::authorize('delete', $gameAccount);
+        $gameAccount->delete();
+        return response()->noContent();
+    }
+
+    public function restore(string $id)
+    {
+        $gameAccount = GameAccount::withTrashed()->findOrFail($id);
+        Gate::authorize('restore', $gameAccount);
+        $gameAccount->restore();
+        return $gameAccount;
+    }
+
+    public function forceDelete(string $id)
+    {
+        $gameAccount = GameAccount::withTrashed()->findOrFail($id);
+        Gate::authorize('forceDelete', $gameAccount);
+        $gameAccount->forceDelete();
+        return response()->noContent();
     }
 }

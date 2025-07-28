@@ -6,6 +6,7 @@ use App\Models\Clan;
 use App\Http\Requests\StoreClanRequest;
 use App\Http\Requests\UpdateClanRequest;
 use App\Http\Resources\ClanResource;
+use App\Http\Resources\ClansummaryResource;
 use Illuminate\Support\Facades\Gate;
 
 class ClanController extends Controller
@@ -16,7 +17,7 @@ class ClanController extends Controller
     public function index()
     {
         Gate::authorize('viewAny', Clan::class);
-        return ClanResource::collection(Clan::all());
+        return ClansummaryResource::collection(Clan::cursorPaginate());
     }
 
     /**
@@ -26,7 +27,7 @@ class ClanController extends Controller
     {
         Gate::authorize('create', Clan::class);
         $clan = Clan::create($request->validated());
-        return new ClanResource($clan);
+        return new ClansummaryResource($clan);
     }
 
     /**
@@ -35,10 +36,17 @@ class ClanController extends Controller
     public function show(Clan $clan)
     {
         Gate::authorize('view', $clan);
+        $clan->load(['leader', 'requeriments', 'members']);
         return new ClanResource($clan);
     }
 
-    public function Requeriments(Clan $clan)
+    public function showMembers(Clan $clan)
+    {
+        Gate::authorize('view', $clan);
+        return $clan->members;
+    }
+
+    public function showRequeriments(Clan $clan)
     {
         Gate::authorize('view', $clan);
         return $clan->requeriments;
@@ -51,7 +59,7 @@ class ClanController extends Controller
     {
         Gate::authorize('update', $clan);
         $clan->update($request->validated());
-        return new ClanResource($clan);
+        return new ClansummaryResource($clan);
     }
 
     /**
@@ -61,7 +69,7 @@ class ClanController extends Controller
     {
         Gate::authorize('delete', $clan);
         $clan->delete();
-        return response()->json(['message' => 'Clan deleted successfully.']);
+        return response()->noContent();
     }
 
     public function restore(string $id)
@@ -69,7 +77,7 @@ class ClanController extends Controller
         $clan = Clan::withTrashed()->findOrFail($id);
         Gate::authorize('restore', $clan);
         $clan->restore();
-        return new ClanResource($clan);
+        return new ClansummaryResource($clan);
     }
 
     public function forceDelete(string $id)
@@ -77,6 +85,6 @@ class ClanController extends Controller
         $clan = Clan::withTrashed()->findOrFail($id);
         Gate::authorize('forceDelete', $clan);
         $clan->forceDelete();
-        return response()->json(['message' => 'Clan permanently deleted.']);
+        return response()->noContent();
     }
 }

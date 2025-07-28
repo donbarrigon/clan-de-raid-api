@@ -22,7 +22,10 @@ class StoreClanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'leader_id' => ['required', 'exists:users,id'],
+            'type' => ['required', 'in:main,secondary'],
+            'description' => ['nullable', 'string'],
         ];
     }
 }

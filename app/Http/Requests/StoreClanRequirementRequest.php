@@ -22,7 +22,11 @@ class StoreClanRequirementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'clan_id' => ['required', 'exists:clans,id'],
+            'label' => ['nullable', 'string', 'max:255'],
+            'min_score' => ['required', 'integer', 'min:0'],
+            'priority' => ['required', 'in:low,medium,high,critical'],
+            'description' => ['nullable', 'string'],
         ];
     }
 }

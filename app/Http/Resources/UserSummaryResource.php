@@ -14,16 +14,22 @@ class UserSummaryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $city    = optional(optional($this->profile)->city);
+        $profile = optional($this->profile);
+        $city    = optional($profile->city);
         $state   = optional($city->state);
         $country = optional($city->country);
+
         return [
             'id'               => $this->id,
             'nick'             => $this->name,
-            'full_name'        => optional($this->profile)->full_name,
-            'phone_number'     => optional($this->profile)->phone_number,
-            'discord_username' => optional($this->profile)->discord_username,
-            'city'             => $city->name . ', ' . $state->name . ', ' . $country->name,
+            'full_name'        => $profile->full_name,
+            'phone_number'     => $profile->phone_number,
+            'discord_username' => $profile->discord_username,
+            'city_id'          => $profile->city_id,
+            'city'             => $city->name && $state->name && $country->name
+                ? "{$city->name}, {$state->name}, {$country->name}"
+                : "unknown",
         ];
+
     }
 }

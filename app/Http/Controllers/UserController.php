@@ -57,6 +57,12 @@ class UserController extends Controller
         return UserResource::make($user);
     }
 
+    public function showGameAccounts(User $user)
+    {
+        Gate::authorize('view', $user);
+        return $user->gameAccounts;
+    }
+
     public function update(UpdateUserRequest $request, User $user)
     {
         Gate::authorize('update', $user);
@@ -229,7 +235,7 @@ class UserController extends Controller
     {
         Gate::authorize('delete', $user);
         $user->delete();
-        return response()->json(['message' => 'User deleted successfully.']);
+        return response()->nocontent();
     }
 
     public function restore(string $id)
@@ -245,6 +251,6 @@ class UserController extends Controller
         $user = User::withTrashed()->findOrFail($id);
         Gate::authorize('forceDelete', $user);
         $user->forceDelete();
-        return response()->json(['message' => 'User permanently deleted.']);
+        return response()->nocontent();
     }
 }

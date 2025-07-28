@@ -26,7 +26,23 @@ class ClanRequirementController extends Controller
     public function destroy(ClanRequirement $clanRequirement)
     {
         Gate::authorize('delete', $clanRequirement);
+        $clanRequirement->delete();
+        return response()->nocontent();
+    }
+
+    public function restore(string $id)
+    {
+        $clanRequirement = ClanRequirement::withTrashed()->findOrFail($id);
+        Gate::authorize('restore', $clanRequirement);
+        $clanRequirement->restore();
+        return $clanRequirement;
+    }
+
+    public function forceDelete(string $id)
+    {
+        $clanRequirement = ClanRequirement::withTrashed()->findOrFail($id);
+        Gate::authorize('forceDelete', $clanRequirement);
         $clanRequirement->forceDelete();
-        return response()->json(['message' => 'Requeriment deleted successfully.']);
+        return response()->nocontent();
     }
 }

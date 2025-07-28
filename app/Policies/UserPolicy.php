@@ -19,9 +19,9 @@ class ProfilePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Profile $profile): bool
+    public function view(User $authUser, User $targetUser): bool
     {
-        return false;
+        return $authUser->hasPermissionTo('view user') || $authUser->id === $targetUser->id;
     }
 
     /**
@@ -35,31 +35,31 @@ class ProfilePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Profile $profile): bool
+    public function update(User $authUser, User $targetUser): bool
     {
-        return false;
+        return $authUser->hasPermissionTo('update user') || $authUser->id === $targetUser->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Profile $profile): bool
+    public function delete(User $authUser, User $targetUser): bool
     {
-        return false;
+        return $authUser->hasPermissionTo('delete profile') || $authUser->id === $targetUser->id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Profile $profile): bool
+    public function restore(User $authUser, User $targetUser): bool
     {
-        return false;
+        return $authUser->hasPermissionTo('delete profile');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Profile $profile): bool
+    public function forceDelete(User $authUser, User $targetUser): bool
     {
         return false;
     }

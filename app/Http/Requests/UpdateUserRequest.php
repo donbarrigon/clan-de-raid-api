@@ -22,12 +22,19 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:users,name|max:255',
+            'name' => 'required|string|unique:users,name|max:255|regex:/^[a-zA-Z][a-zA-Z0-9_-]{2,254}$/',
             'full_name' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:20|regex:/^[0-9\-\+]+$/',
             'discord_username' => 'nullable|string|max:50|regex:/^[a-zA-Z0-9_]+$/',
             'city_id' => 'required|exists:cities,id',
             'preferences' => 'nullable|json',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.regex' => __('validation.custom.name.regex'),
         ];
     }
 }

@@ -13,7 +13,7 @@ class ClanRequirementPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class ClanRequirementPolicy
      */
     public function view(User $user, ClanRequirement $clanRequirement): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class ClanRequirementPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('create clan');
     }
 
     /**
@@ -37,7 +37,8 @@ class ClanRequirementPolicy
      */
     public function update(User $user, ClanRequirement $clanRequirement): bool
     {
-        return false;
+        $clan = optional($clanRequirement->clan);
+        return $user->hasPermissionTo('update clan') || $clan->leader->id === $user->id;
     }
 
     /**
@@ -45,7 +46,7 @@ class ClanRequirementPolicy
      */
     public function delete(User $user, ClanRequirement $clanRequirement): bool
     {
-        return false;
+        return $user->hasPermissionTo('delete clan');
     }
 
     /**
@@ -53,7 +54,7 @@ class ClanRequirementPolicy
      */
     public function restore(User $user, ClanRequirement $clanRequirement): bool
     {
-        return false;
+        return $user->hasPermissionTo('delete clan');
     }
 
     /**
@@ -61,6 +62,6 @@ class ClanRequirementPolicy
      */
     public function forceDelete(User $user, ClanRequirement $clanRequirement): bool
     {
-        return false;
+        return $user->hasPermissionTo('delete clan');
     }
 }
